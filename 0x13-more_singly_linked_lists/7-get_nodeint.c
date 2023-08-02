@@ -1,35 +1,36 @@
 /*
- * File: 6-pop_listint.c
+ * File: 7-get_nodeint.c
  * Author: Hicham
  */
 
 #include "lists.h"
 
 /**
- * pop_listint - Deletes the head node of a listint_t list.
- * @head: A pointer to the address of the head of the listint_t list.
+ * get_nodeint_at_index - Locates a given node of
+ *                        a listint_t linked list.
+ * @head: A pointer to the head of the listint_t list.
+ * @index: The index of the node to locate - indices start at 0.
  *
- * Return: If the linked list is empty - 0.
- *         Otherwise - The head node's data (n).
+ * Return: If the node does not exist - NULL.
+ *         Otherwise - the located node.
  *
  * Description:
- * This function removes the head node of the linked list and frees the memory
- * occupied by the removed node. If the list is empty, it returns 0. Otherwise,
- * it returns the data (n) of the head node before deletion.
+ * This function traverses the list to locate the node at the given index
+ * and returns a pointer to that node. The index starts at 0, so passing
+ * 0 as the index will return the first node, 1 will return the second node,
+ * and so on. If the index is out of the list's range, it returns NULL.
  */
-int pop_listint(listint_t **head)
+listint_t *get_nodeint_at_index(listint_t *head, unsigned int index)
 {
-	listint_t *tmp;
-	int ret;
+	unsigned int node;
 
-	if (*head == NULL)
-		return (0);
+	for (node = 0; node < index; node++)
+	{
+		if (head == NULL)
+			return (NULL);
 
-	tmp = *head;
-	ret = (*head)->n;
-	*head = (*head)->next;
+		head = head->next;
+	}
 
-	free(tmp);
-
-	return (ret);
+	return (head);
 }
