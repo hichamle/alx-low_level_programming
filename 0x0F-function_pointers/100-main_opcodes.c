@@ -10,7 +10,6 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
-13:37
 #include <stdio.h>
 #include <stdlib.h>
 /**
