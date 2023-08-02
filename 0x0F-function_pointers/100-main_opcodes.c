@@ -1,48 +1,51 @@
-#include <unistd.h>
-/**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+/*
+ * File: 100-main_opcodes.c
+ * Auth: Brennan D Baraban
  */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
+
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * main - prints its own opcodes
- * @argc: number of arguments
- * @argv: array of arguments
+ * main - Prints the opcodes of itself.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * Return: Always 0 (Success)
+ * Return: Always 0.
  */
 int main(int argc, char *argv[])
 {
-	int bytes, i;
-	char *arr;
+	int bytes, index;
+	int (*address)(int, char **) = main;
+	unsigned char opcode;
+
 	if (argc != 2)
 	{
 		printf("Error\n");
 		exit(1);
 	}
+
 	bytes = atoi(argv[1]);
+
 	if (bytes < 0)
 	{
 		printf("Error\n");
 		exit(2);
 	}
-	arr = (char *)main;
-	for (i = 0; i < bytes; i++)
+
+	for (index = 0; index < bytes; index++)
 	{
-		if (i == bytes - 1)
-		{
-			printf("%02hhx\n", arr[i]);
-			break;
-		}
-		printf("%02hhx ", arr[i]);
+		opcode = *(unsigned char *)address;
+		printf("%.2x", opcode);
+
+		if (index == bytes - 1)
+			continue;
+		printf(" ");
+
+		address++;
 	}
+
+	printf("\n");
+
 	return (0);
 }
